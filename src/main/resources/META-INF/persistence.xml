@@ -1,0 +1,28 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="foodDeliveryPU" transaction-type="JTA">
+        <jta-data-source>FoodDeliveryDS</jta-data-source>
+        <class>com.foodapp.entity.User</class>
+        <class>com.foodapp.entity.Address</class>
+        <class>com.foodapp.entity.Restaurant</class>
+        <class>com.foodapp.entity.FoodCategory</class>
+        <class>com.foodapp.entity.MealCategory</class>
+        <class>com.foodapp.entity.MenuItem</class>
+        <class>com.foodapp.entity.Cart</class>
+        <class>com.foodapp.entity.CartItem</class>
+        <class>com.foodapp.entity.Order</class>
+        <class>com.foodapp.entity.OrderItem</class>
+        <class>com.foodapp.entity.Payment</class>
+        <class>com.foodapp.entity.Voucher</class>
+        <class>com.foodapp.entity.Review</class>
+
+        <!-- No <class> tags yet, we will add them as we create real entities -->
+        <properties>
+            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="false"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,16 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: darshilnama
-  Date: 23/09/26
-  Time: 8:57 pm
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
-</html>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${pageTitle != null ? pageTitle : 'Food Delivery'}</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>

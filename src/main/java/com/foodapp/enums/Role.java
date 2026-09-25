@@ -1,4 +1,7 @@
 package com.foodapp.enums;
 
-public class Role {
+public enum Role {
+    CUSTOMER,
+    RESTAURANT_OWNER,
+    ADMIN
 }
