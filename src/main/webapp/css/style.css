@@ -1240,6 +1240,40 @@ main {
 .bill-success h1 { font-size: 26px; margin-bottom: 6px; }
 .bill-success p { color: #666; }
 
+.bill-failed, .bill-pending {
+    text-align: center;
+    padding: 32px 0;
+}
+.bill-failed h1, .bill-pending h1 { font-size: 26px; margin-bottom: 6px; }
+.bill-failed p, .bill-pending p { color: #666; }
+
+.failed-cross {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #fdecea;
+    color: #b71c1c;
+    font-size: 34px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+.pending-clock {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #fff8e1;
+    color: #f57f17;
+    font-size: 34px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
 .bill-card {
     background: #fff;
     padding: 28px;

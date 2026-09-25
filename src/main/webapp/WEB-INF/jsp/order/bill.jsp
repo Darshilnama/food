@@ -6,11 +6,29 @@
 <jsp:include page="../common/navbar.jsp" />
 
 <main class="container narrow">
-  <div class="bill-success">
-    <div class="success-check">✓</div>
-    <h1>Payment Successful</h1>
-    <p>Thank you, ${bill.customerName}! Your order is confirmed.</p>
-  </div>
+  <c:choose>
+    <c:when test="${payment != null && payment.status.name() == 'SUCCESS'}">
+      <div class="bill-success">
+        <div class="success-check">✓</div>
+        <h1>Payment Successful</h1>
+        <p>Thank you, ${bill.customerName}! Your order is confirmed.</p>
+      </div>
+    </c:when>
+    <c:when test="${payment != null && payment.status.name() == 'FAILED'}">
+      <div class="bill-failed">
+        <div class="failed-cross">✗</div>
+        <h1>Payment Failed</h1>
+        <p>Unfortunately, your payment could not be processed.</p>
+      </div>
+    </c:when>
+    <c:otherwise>
+      <div class="bill-pending">
+        <div class="pending-clock">⏱</div>
+        <h1>Payment Pending</h1>
+        <p>Thank you, ${bill.customerName}! Please pay on delivery.</p>
+      </div>
+    </c:otherwise>
+  </c:choose>
 
   <div class="bill-card">
     <div class="bill-header">

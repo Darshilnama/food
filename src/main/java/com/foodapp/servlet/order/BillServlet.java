@@ -11,11 +11,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import com.foodapp.dao.PaymentDAO;
+import com.foodapp.entity.Payment;
 
 @WebServlet("/bill")
 public class BillServlet extends HttpServlet {
 
     @Inject private OrderService orderService;
+    @Inject private PaymentDAO paymentDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -35,9 +38,11 @@ public class BillServlet extends HttpServlet {
             return;
         }
 
+        Payment payment = paymentDAO.findByOrderId(orderId);
         BillDTO bill = orderService.generateBill(orderId);
         req.setAttribute("bill", bill);
         req.setAttribute("order", order);
+        req.setAttribute("payment", payment);
         req.getRequestDispatcher("/WEB-INF/jsp/order/bill.jsp").forward(req, resp);
     }
 
