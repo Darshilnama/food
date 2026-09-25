@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import com.foodapp.websocket.EventBroadcaster;
 
 @ApplicationScoped
 public class OrderService {
@@ -20,6 +21,7 @@ public class OrderService {
     @Inject private VoucherService voucherService;
     @Inject private AddressService addressService;
     @Inject private com.foodapp.dao.AddressDAO addressDAO;
+    @Inject private EventBroadcaster eventBroadcaster;
 
 
     @jakarta.transaction.Transactional
@@ -80,6 +82,11 @@ public class OrderService {
         cart.setRestaurant(null);
         cartDAO.update(cart);
 
+        if (eventBroadcaster != null) {
+            eventBroadcaster.broadcastToUser(userId, "{\"type\": \"ORDER_UPDATED\"}");
+            eventBroadcaster.broadcastToUser(userId, "{\"type\": \"CART_UPDATED\"}");
+        }
+
         return saved;
     }
 
@@ -103,6 +110,9 @@ public class OrderService {
         if (order != null) {
             order.setStatus(status);
             orderDAO.update(order);
+            if (eventBroadcaster != null && order.getUser() != null) {
+                eventBroadcaster.broadcastToUser(order.getUser().getUserId(), "{\"type\": \"ORDER_UPDATED\"}");
+            }
         }
     }
     /**

@@ -7,6 +7,7 @@ import com.foodapp.entity.Cart;
 import com.foodapp.entity.CartItem;
 import com.foodapp.entity.MenuItem;
 import com.foodapp.entity.User;
+import com.foodapp.websocket.EventBroadcaster;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,6 +25,9 @@ public class CartService {
 
     @Inject
     private UserDAO userDAO;
+    
+    @Inject
+    private EventBroadcaster eventBroadcaster;
 
     @Transactional
     public Cart getOrCreateCart(Long userId) {
@@ -65,7 +69,11 @@ public class CartService {
             newItem.setQuantity(quantity);
             cart.addItem(newItem);
         }
-        return cartDAO.update(cart);
+        Cart saved = cartDAO.update(cart);
+        if (eventBroadcaster != null) {
+            eventBroadcaster.broadcastToUser(userId, "{\"type\": \"CART_UPDATED\"}");
+        }
+        return saved;
     }
 
     @Transactional
@@ -89,7 +97,11 @@ public class CartService {
             cart.setRestaurant(null);
         }
 
-        return cartDAO.update(cart);
+        Cart saved = cartDAO.update(cart);
+        if (eventBroadcaster != null) {
+            eventBroadcaster.broadcastToUser(userId, "{\"type\": \"CART_UPDATED\"}");
+        }
+        return saved;
     }
     @Transactional
     public Cart removeItem(Long userId, Long cartItemId) {
@@ -109,7 +121,11 @@ public class CartService {
             cart.setRestaurant(null);
         }
 
-        return cartDAO.update(cart);
+        Cart saved = cartDAO.update(cart);
+        if (eventBroadcaster != null) {
+            eventBroadcaster.broadcastToUser(userId, "{\"type\": \"CART_UPDATED\"}");
+        }
+        return saved;
     }
     @Transactional
     public void clearCart(Long userId) {
@@ -118,6 +134,9 @@ public class CartService {
             cart.getItems().clear();
             cart.setRestaurant(null);
             cartDAO.update(cart);
+            if (eventBroadcaster != null) {
+                eventBroadcaster.broadcastToUser(userId, "{\"type\": \"CART_UPDATED\"}");
+            }
         }
     }
 

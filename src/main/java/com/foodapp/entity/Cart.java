@@ -15,6 +15,10 @@ public class Cart implements Serializable {
     @Column(name = "cart_id")
     private Long cartId;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

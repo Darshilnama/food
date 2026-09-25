@@ -18,6 +18,10 @@ public class User implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     @NotBlank
     @Column(unique = true, nullable = false, length = 50)
     private String username;

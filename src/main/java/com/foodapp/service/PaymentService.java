@@ -7,6 +7,7 @@ import com.foodapp.entity.Payment;
 import com.foodapp.enums.OrderStatus;
 import com.foodapp.enums.PaymentMethod;
 import com.foodapp.enums.PaymentStatus;
+import com.foodapp.websocket.EventBroadcaster;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -19,6 +20,7 @@ public class PaymentService {
 
     @Inject private PaymentDAO paymentDAO;
     @Inject private OrderDAO orderDAO;
+    @Inject private EventBroadcaster eventBroadcaster;
 
     @Transactional
     public Payment processPayment(Long orderId, PaymentMethod method) {
@@ -40,6 +42,13 @@ public class PaymentService {
             orderDAO.update(order);
         }
 
-        return paymentDAO.save(payment);
+        Payment saved = paymentDAO.save(payment);
+        
+        if (eventBroadcaster != null && order.getUser() != null) {
+            eventBroadcaster.broadcastToUser(order.getUser().getUserId(), "{\"type\": \"PAYMENT_UPDATED\"}");
+            eventBroadcaster.broadcastToUser(order.getUser().getUserId(), "{\"type\": \"ORDER_UPDATED\"}");
+        }
+        
+        return saved;
     }
 }

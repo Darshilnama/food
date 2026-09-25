@@ -7,5 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle != null ? pageTitle : 'Food Delivery'}</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <script>
+        window.contextPath = '${pageContext.request.contextPath}';
+        <c:if test="${not empty sessionScope.userId}">
+        window.userId = ${sessionScope.userId};
+        </c:if>
+    </script>
 </head>
 <body>

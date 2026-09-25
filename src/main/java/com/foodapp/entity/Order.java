@@ -17,6 +17,10 @@ public class Order implements Serializable {
     @Column(name = "order_id")
     private Long orderId;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

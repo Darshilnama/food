@@ -14,6 +14,10 @@ public class Restaurant implements Serializable {
     @Column(name = "restaurant_id")
     private Long restaurantId;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     @NotBlank
     @Column(nullable = false, length = 150)
     private String name;

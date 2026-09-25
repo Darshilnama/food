@@ -16,6 +16,10 @@ public class MenuItem implements Serializable {
     @Column(name = "item_id")
     private Long itemId;
 
+    @Version
+    @Column(name = "version")
+    private Long version;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
