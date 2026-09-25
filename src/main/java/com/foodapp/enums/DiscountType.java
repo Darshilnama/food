@@ -1,4 +1,6 @@
 package com.foodapp.enums;
 
-public class DiscountType {
+public enum DiscountType {
+    PERCENTAGE,
+    FLAT
 }

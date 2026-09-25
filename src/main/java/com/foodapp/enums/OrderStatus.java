@@ -1,4 +1,10 @@
 package com.foodapp.enums;
 
-public class OrderStatus {
+public enum OrderStatus {
+    PENDING,
+    CONFIRMED,
+    PREPARING,
+    OUT_FOR_DELIVERY,
+    DELIVERED,
+    CANCELLED
 }

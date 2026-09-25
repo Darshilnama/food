@@ -1,4 +1,7 @@
 package com.foodapp.enums;
 
-public class FoodType {
+public enum FoodType {
+    VEG,
+    NON_VEG,
+    VEGAN
 }
